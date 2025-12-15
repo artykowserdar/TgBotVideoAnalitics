@@ -3,14 +3,13 @@ version: '3.9'
 services:
   db:
     image: postgres:15-alpine
-    container_name: video_postgres
-    restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: db_video_analytics
+      POSTGRES_USER: erp_user
+      POSTGRES_PASSWORD: ErpUser123.
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init-user.sql:/docker-entrypoint-initdb.d/init-user.sql
       - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql  # автоматически создаст таблицы при первом запуске
     ports:
       - "5433:5432"
